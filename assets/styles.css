@@ -8,3 +8,8 @@
 .hero{padding:60px 0;background-size:cover;background-position:center}.tabs .wrap{display:flex;gap:8px;justify-content:center;padding:18px 0}
 .tab{padding:10px 12px;border:1px solid #e5e7eb;border-radius:999px}.tab.active{background:#0A2540;color:#fff}
 .footer{background:#0A2540;color:#c7d2fe;padding:22px 0}.footer a{color:#e0f2fe}
+
+/* nicer cards & pills */
+.pill{background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:16px}
+.card{background:#fff;border:1px solid #e5e7eb;border-radius:18px;box-shadow:0 10px 30px rgba(0,0,0,.06)}
+.badge{background:#f5f7fb;color:#0b3a2f;border:1px dashed #d5e7df;padding:8px 12px;border-radius:999px;font-size:.84rem}
