@@ -1,0 +1,1 @@
+export default async (req, ctx)=>{const city=ctx.geo?.city||'';const r=await ctx.next();r.headers.append('Set-Cookie',`x-city=${encodeURIComponent(city)}; Path=/; Max-Age=86400; SameSite=Lax`);return r;};
