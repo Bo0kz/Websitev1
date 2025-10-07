@@ -13,3 +13,25 @@ window.addEventListener('popstate', ()=> activate((location.hash||'#home').slice
 activate((location.hash||'#home').slice(1));
 document.getElementById('leadForm')?.addEventListener('submit', e=>{e.preventDefault(); const fd=new FormData(e.target); fetch('/',{method:'POST',body:fd}).catch(()=>{}); alert('Submitted!');});
 })();
+// --- Address switching (NYC cities -> Brooklyn; else Syracuse)
+(function(){
+  const addrEls = document.querySelectorAll('.nycm-address-slot');
+  const nycCities = ['New York','Brooklyn','Queens','Bronx','Staten Island'];
+  const nyAddress = '202 Sheffield Avenue Brooklyn NY, 11207';
+  const syAddress = '127 Cumberland Avenue Syracuse New York 13210';
+
+  function setAddr(v){ addrEls.forEach(el=> el.textContent = v); }
+
+  // simple fallback first
+  setAddr(syAddress);
+
+  // use ipapi (client) – OK for now; we can move to Edge later
+  fetch('https://ipapi.co/json')
+    .then(r=>r.ok?r.json():null)
+    .then(d=>{
+      if(!d) return;
+      const city = (d.city||'').trim();
+      setAddr(nycCities.includes(city) ? nyAddress : syAddress);
+    })
+    .catch(()=>{ /* keep fallback */ });
+})();
