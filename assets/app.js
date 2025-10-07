@@ -79,5 +79,44 @@ document.querySelectorAll('.nycm-dot').forEach(el=>{
     io.observe(tabsEl);
   }
 })();
+// --- Netlify Forms (AJAX submit with success message & 20s countdown)
+(function(){
+  const form = document.getElementById('leadForm');
+  const result = document.getElementById('leadResult');
+  const modal = document.getElementById('leadModal');
+  if(!form) return;
+
+  function encode(data) {
+    return new URLSearchParams(data).toString();
+  }
+
+  form.addEventListener('submit', (e)=>{
+    e.preventDefault();
+    const data = Object.fromEntries(new FormData(form));
+    data['form-name'] = form.getAttribute('name') || 'lead';
+
+    fetch('/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: encode(data)
+    }).then(()=>{
+      let s = 20;
+      result.textContent = "✅ Thanks! Your request was received.\nWould you like a callback or to book a time?\n\nRefreshing in 20 seconds…";
+      const timer = setInterval(()=>{
+        s -= 1;
+        if(s<=0){ clearInterval(timer); modal.classList.remove('open'); result.textContent=''; form.reset(); }
+        else { result.textContent = "✅ Thanks! Your request was received.\nWould you like a callback or to book a time?\n\nRefreshing in " + s + " seconds…"; }
+      }, 1000);
+    }).catch(()=>{
+      result.textContent = "⚠️ We couldn't send that right now. Please call 929-610-2406 or try again.";
+    });
+  });
+
+  // open/close
+  document.getElementById('openLead')?.addEventListener('click', (e)=>{ e.preventDefault(); modal.classList.add('open'); });
+  document.getElementById('closeLead')?.addEventListener('click', ()=> modal.classList.remove('open'));
+  document.getElementById('closeLead2')?.addEventListener('click', ()=> modal.classList.remove('open'));
+})();
+
 
 
