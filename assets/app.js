@@ -159,3 +159,18 @@
   set('landing_page', location.href);
   set('referrer', document.referrer);
 })();
+
+/* ===== Optional backup redirect if site is degraded ===== */
+// Set this to your mirror (e.g., GitHub Pages) when ready:
+const BACKUP_URL = ""; // e.g., "https://nycleanmovers.github.io/"
+(function(){
+  if(!BACKUP_URL) return;
+  // Ping a tiny asset every 30s; if it fails 3x in a row, redirect users.
+  let fails = 0;
+  setInterval(()=>{
+    fetch('./assets/hero.svg', {cache:'no-store'}).then(()=>{ fails = 0; }).catch(()=>{
+      fails += 1;
+      if(fails >= 3){ location.href = BACKUP_URL; }
+    });
+  }, 30000);
+})();
