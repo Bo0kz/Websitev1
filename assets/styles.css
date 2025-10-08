@@ -1,4 +1,5 @@
-:root{--brand:#0A2540;--accent:#00D084;--text:#111827;--radius:18px;--max:1100px}
+:root{--brand:#0A2540; --accent:#00D084; --text:#111827; --sub:#4b5563; --muted:#f5f7fb;
+  --radius:18px; --max:1100px; --shadow:0 10px 30px rgba(0,0,0,.06}
 *{box-sizing:border-box}body{font-family:Inter,Arial,sans-serif;color:var(--text);margin:0}
 .wrap{max-width:var(--max);margin:0 auto;padding:0 18px}.banner{position:sticky;top:0;z-index:60;transition:transform .28s ease,opacity .28s ease;background:var(--brand);color:#fff}
 .banner.hidden{transform:translateY(-100%);opacity:0}
